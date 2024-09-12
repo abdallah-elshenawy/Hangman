@@ -14,15 +14,23 @@ hangman = ["""
    +---+
   |   |
   O   |
- /|\  |
- / \  |
+ /|\\  |
+ / \\  |
       |
 =========
 ""","""          
    +---+
   |   |
   O   |
- /|\  |
+ /|\\  |
+ /    |
+      |
+=========
+""", """      
+   +---+
+  |   |
+  O   |
+ /|\\  |
       |
       |
 =========
@@ -58,23 +66,23 @@ hangman = ["""
       |
       |
 =========
-""", """
-   +---+
-      |
-      |
-      |
-      |
-      |
-=========
 """]
 chances = 6
 print(" ".join(displays))
 print(hangman[6])
 while ("_" in displays) and (chances != 0):
    guessed = input("Please guess a letter: ")
+
+   # did the user guess the letter before
    if guessed in exist_list:
       print("\nYou already guessed that. Try again.")
-   elif (guessed not in rand_word):
+      print(f"You have {chances} more tries.")
+      continue
+
+   # store the guessed letter in the exist_list
+   exist_list.append(guessed)
+
+   if (guessed not in rand_word):
       chances -= 1
       print(hangman[chances])
    else:
@@ -85,5 +93,13 @@ while ("_" in displays) and (chances != 0):
       
    print(" ".join(displays))
    print(f"You have {chances} more tries.")
-   exist_list.append(guessed)
-      
+if chances == 0:
+   print("""
+   YOU LOSE ! 
+   """)
+   print(hangman[0])
+
+else:
+   print("""
+   YOU WIN !
+   """)
